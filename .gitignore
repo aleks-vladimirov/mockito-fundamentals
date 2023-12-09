@@ -22,3 +22,12 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+.idea/jpa-buddy.xml
+.idea/misc.xml
+.idea/mockito-fundamentals.iml
+.idea/modules.xml
+.idea/vcs.xml
+section3/.idea/vcs.xml
+section3/.idea/misc.xml
+section3/.idea/encodings.xml
+section3/.idea/jpa-buddy.xml
