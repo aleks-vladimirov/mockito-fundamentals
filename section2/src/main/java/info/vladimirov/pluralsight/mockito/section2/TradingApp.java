@@ -1,17 +1,17 @@
 package info.vladimirov.pluralsight.mockito.section2;
 
 
-import info.vladimirov.pluralsight.mockito.section2.api.AuditRepo;
+import info.vladimirov.pluralsight.mockito.section2.api.AuditReport;
 import info.vladimirov.pluralsight.mockito.section2.api.Exchange;
 import info.vladimirov.pluralsight.mockito.section2.api.MarketData;
 
 public class TradingApp {
 
-    private final AuditRepo audit;
+    private final AuditReport audit;
     private final MarketData marketData;
     private final Exchange exchange;
 
-    public TradingApp(AuditRepo audit, MarketData marketData, Exchange exchange) {
+    public TradingApp(AuditReport audit, MarketData marketData, Exchange exchange) {
         this.audit = audit;
         this.marketData = marketData;
         this.exchange = exchange;

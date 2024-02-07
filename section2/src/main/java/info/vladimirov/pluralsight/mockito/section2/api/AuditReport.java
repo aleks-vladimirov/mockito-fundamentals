@@ -1,6 +1,6 @@
 package info.vladimirov.pluralsight.mockito.section2.api;
 
-public interface AuditRepo {
+public interface AuditReport {
 
     void reportTrade(String message, int qty, double price);
 

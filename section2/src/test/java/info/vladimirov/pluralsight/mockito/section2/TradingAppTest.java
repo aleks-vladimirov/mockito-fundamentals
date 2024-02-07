@@ -1,21 +1,23 @@
 package info.vladimirov.pluralsight.mockito.section2;
 
-import info.vladimirov.pluralsight.mockito.section2.api.AuditRepo;
+
+import info.vladimirov.pluralsight.mockito.section2.api.AuditReport;
 import info.vladimirov.pluralsight.mockito.section2.api.Exchange;
 import info.vladimirov.pluralsight.mockito.section2.api.MarketData;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.mock;
 class TradingAppTest {
 
     @Test
     void executeTradeGuaranteeHappyPath() {
-        AuditRepo auditRepo = Mockito.mock(AuditRepo.class);
-        Exchange exchange = Mockito.mock(Exchange.class);
-        MarketData marketData = Mockito.mock(MarketData.class);
+        AuditReport auditRepo = Mockito.mock(AuditReport.class);
+        Exchange exchange = mock(Exchange.class);
+        MarketData marketData = mock(MarketData.class);
+
         TradingApp tradingApp = new TradingApp(auditRepo, marketData, exchange);
 
         final String symbol = "PS";
@@ -29,13 +31,11 @@ class TradingAppTest {
                 Mockito.anyString(), Mockito.anyInt(), Mockito.anyDouble())).thenReturn(true);
 
         boolean executionOutcome = tradingApp.executeTradeGuarantee(symbol, qty, px);
-
         Assertions.assertTrue(executionOutcome);
 
-        Mockito.verify(marketData).isCurrentOrderPossible(symbol, qty, px);
+        Mockito.verify(marketData, atLeast(2)).isCurrentOrderPossible(symbol, qty, px);
 
         Mockito.verify(auditRepo).reportTrade(Mockito.anyString(), Mockito.eq(qty), Mockito.eq(px));
-
 
     }
 
