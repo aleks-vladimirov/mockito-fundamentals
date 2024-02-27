@@ -1,4 +1,4 @@
-package info.vladimirov.pluralsight.mockito.module3;
+package info.vladimirov.pluralsight.mockito.module3.api;
 
 import info.vladimirov.pluralsight.mockito.module3.model.AuditType;
 

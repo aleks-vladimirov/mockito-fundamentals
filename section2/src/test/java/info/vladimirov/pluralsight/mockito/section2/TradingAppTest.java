@@ -8,15 +8,19 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.util.Collection;
+
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 class TradingAppTest {
 
     @Test
     void executeTradeGuaranteeHappyPath() {
-        AuditReport auditRepo = Mockito.mock(AuditReport.class);
-        Exchange exchange = mock(Exchange.class);
-        MarketData marketData = mock(MarketData.class);
+        AuditReport auditRepo = Mockito.mock();
+        Exchange exchange = mock();
+        MarketData marketData = mock();
+
+        Collection<? extends Object> marketData1 = mock();
 
         TradingApp tradingApp = new TradingApp(auditRepo, marketData, exchange);
 
@@ -33,7 +37,7 @@ class TradingAppTest {
         boolean executionOutcome = tradingApp.executeTradeGuarantee(symbol, qty, px);
         Assertions.assertTrue(executionOutcome);
 
-        Mockito.verify(marketData, atLeast(2)).isCurrentOrderPossible(symbol, qty, px);
+        Mockito.verify(marketData).isCurrentOrderPossible(symbol, qty, px);
 
         Mockito.verify(auditRepo).reportTrade(Mockito.anyString(), Mockito.eq(qty), Mockito.eq(px));
 
