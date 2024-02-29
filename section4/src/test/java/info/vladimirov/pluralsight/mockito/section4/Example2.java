@@ -1,24 +1,53 @@
-import info.vladimirov.pluralsight.mockito.section4.Algo;
-import info.vladimirov.pluralsight.mockito.section4.Calculation2;
-import info.vladimirov.pluralsight.mockito.section4.Calculation3;
+package info.vladimirov.pluralsight.mockito.section4;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doReturn;
 
-public class Example4 {
+
+public class Example2 {
+
+
+
+    //Expected to throw an exception
+    @Test
+    void spyingMock() {
+        List list = Mockito.mock(List.class);
+        Assertions.assertNotNull(list);
+
+        Mockito.spy(list);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     class SimpleAlgo implements Algo {
 
         @Override
-        public BigDecimal getCalculation(BigDecimal initialInput) {
+        public BigDecimal getCalculation(BigDecimal initialInput, MarketData marketData) {
             int multiplicationFactor = LocalDate.now().getDayOfMonth() % 2 == 0 ? 2 : 1;
             return initialInput.multiply(BigDecimal.valueOf(multiplicationFactor));
         }
@@ -31,7 +60,7 @@ public class Example4 {
 
         public BigDecimal getAlgo1Calculation(BigDecimal initialPosition, Algo adjustmentAlgo) {
             BigDecimal algoPosition = calculateMarketExpectations(initialPosition, new Date(), 3.1);
-            BigDecimal adjustedPosition = adjustmentAlgo.getCalculation(algoPosition);
+            BigDecimal adjustedPosition = adjustmentAlgo.getCalculation(algoPosition, mock());
             return adjustedPosition;
         }
 
@@ -41,7 +70,7 @@ public class Example4 {
     void spyAbstractClass() {
         Calculation2 calculation = spy(Calculation2.class);
         BigDecimal initialPosition = BigDecimal.valueOf(24.0);
-        doReturn(initialPosition).when(calculation).calculateMarketExpectations
+        doReturn(initialPosition.multiply(BigDecimal.valueOf(2))).when(calculation).calculateMarketExpectations
                 (Mockito.eq(initialPosition), Mockito.any(), Mockito.anyDouble());
 
 
@@ -72,7 +101,7 @@ public class Example4 {
 
 
         BigDecimal result = calculation.getAlgo1Calculation(initialPosition, new SimpleAlgo());
-        Assertions.assertEquals(initialPosition.multiply(BigDecimal.valueOf(2)), result);
+        Assertions.assertEquals(initialPosition, result);
     }
 
     @Test

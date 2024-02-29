@@ -4,6 +4,6 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 public interface Algo {
-        BigDecimal getCalculation(BigDecimal initialInput);
+        BigDecimal getCalculation(BigDecimal initialInput, MarketData marketData);
 }
 
