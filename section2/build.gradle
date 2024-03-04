@@ -1,0 +1,25 @@
+
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '5.10.0'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+group = 'info.vladimirov.pluralsight.mockito.section2'
+version = '1.0-SNAPSHOT'
+description = 'section2'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+}
+
+test {
+    useJUnitPlatform()
+}
